@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import usersRouter from './routes/users.routes'
 import databaseService from './services/database.services'
 
@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter)
 
 databaseService.connect()
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(400).json({ error: err.message })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
