@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { UserVerifyStatus } from '~/constants/enums'
 
-
 interface UserType {
   _id?: ObjectId
   name: string
@@ -61,3 +60,5 @@ export default class User {
     this.cover_photo = user.cover_photo || ''
   }
 }
+
+// khi dùng interface thì nó chỉ đại diện cho kiểu dữ liệu thôi, còn khi dùng class vừa đại diện cho kiểu dữ liệu vừa đại diện cho obj luôn
