@@ -29,12 +29,13 @@ export const initFolder = () => {
 //     })
 //   })
 
-export const handleUploadSingleImage = async (req: Request) => {
+export const handleUploadImage = async (req: Request) => {
   const form = formidable({
     uploadDir: UPLOAD_TEMP_DIR, //Chỉ định thư mục tạm (và cũng là nơi lưu file) khi upload xong
-    maxFiles: 1,
+    maxFiles: 4,
     keepExtensions: true, //Giữ lại đuôi file gốc (.jpg, .png, .mp4)
     maxFileSize: 300 * 1024, // 300MB,
+    maxTotalFileSize: 300 * 1024 * 4,
     filter: function ({ name, originalFilename, mimetype }) {
       // console.log('name:', name) // name là tên của field khi chúng ta upload lên
       // console.log('originalFilename:', originalFilename) // originalFilename là tên file gốc của file khi chúng ta upload lên
@@ -48,7 +49,7 @@ export const handleUploadSingleImage = async (req: Request) => {
   })
 
   // Chúng ta đang throw 1 mỗi trong callback của async thì nó sẽ ko làm cái function uploadSingleImageController reject được
-  return new Promise<File>((resolve, reject) => {
+  return new Promise<File[]>((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       // console.log('fields:', fields)
       // console.log('files:', files)
@@ -60,7 +61,7 @@ export const handleUploadSingleImage = async (req: Request) => {
       if (!Boolean(files.image)) {
         return reject(new Error('File is empty'))
       }
-      resolve((files.image as File[])[0])
+      resolve(files.image as File[])
     })
   })
 }
