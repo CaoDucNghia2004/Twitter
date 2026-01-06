@@ -6,6 +6,7 @@ import mediasRoute from './routes/medias.routes'
 import { initFolder } from './utils/file'
 import { config } from 'dotenv'
 import { UPLOAD_DIR } from './constants/dir'
+import staticRouter from './routes/static.routes'
 config()
 
 databaseService.connect()
@@ -25,7 +26,8 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter)
 app.use('/medias', mediasRoute)
 
-app.use('/static', express.static(UPLOAD_DIR))
+app.use('/static', staticRouter)
+// app.use('/static', express.static(UPLOAD_DIR))
 
 // default error handler mặc định
 app.use(defaultErrorHandler)
