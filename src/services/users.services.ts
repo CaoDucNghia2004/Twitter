@@ -146,6 +146,7 @@ class UsersService {
     }
   }
 
+  // gọi lên gg api để lấy thông tin user
   private async getGoogleUserInfo(access_token: string, id_token: string) {
     const { data } = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
       params: {

@@ -329,6 +329,7 @@ export const refreshTokenValidator = validate(
               ;(req as Request).decoded_refresh_token = decoded_refresh_token
             } catch (error) {
               if (error instanceof JsonWebTokenError) {
+                //JsonWebTokenError là lỗi do thư viện jsonwebtoken throw, nó xảy ra khi token không hợp lệ
                 throw new ErrorWithStatus({
                   message: capitalize(error.message),
                   status: HTTP_STATUS.UNAUTHORIZED

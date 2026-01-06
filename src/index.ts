@@ -2,10 +2,15 @@ import express from 'express'
 import usersRouter from './routes/users.routes'
 import databaseService from './services/database.services'
 import { defaultErrorHandler } from './middlewares/error.middlewares'
+import mediasRoute from './routes/medias.routes'
+import { initFolder } from './utils/file'
 
 databaseService.connect()
 const app = express()
 const port = 4000
+
+// Tạo folder upload nếu chưa tồn tại
+initFolder()
 
 app.use(express.json()) // xử lý cái Json đầu vào chuyển thành obj cho chúng ta
 
@@ -14,6 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', usersRouter)
+app.use('/medias', mediasRoute)
 
 // default error handler mặc định
 app.use(defaultErrorHandler)
