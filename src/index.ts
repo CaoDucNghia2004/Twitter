@@ -5,7 +5,7 @@ import { defaultErrorHandler } from './middlewares/error.middlewares'
 import mediasRouter from './routes/medias.routes'
 import { initFolder } from './utils/file'
 import { config } from 'dotenv'
-import { UPLOAD_IMAGE_DIR } from './constants/dir'
+import { UPLOAD_IMAGE_DIR, UPLOAD_VIDEO_DIR } from './constants/dir'
 import staticRouter from './routes/static.routes'
 config()
 
@@ -27,7 +27,7 @@ app.use('/users', usersRouter)
 app.use('/medias', mediasRouter)
 
 app.use('/static', staticRouter)
-// app.use('/static', express.static(UPLOAD_IMAGE_DIR))
+app.use('/static/video', express.static(UPLOAD_VIDEO_DIR))
 
 // default error handler mặc định
 app.use(defaultErrorHandler)
