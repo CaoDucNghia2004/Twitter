@@ -102,3 +102,11 @@ export const serveVideoStreamController = (req: Request, res: Response, next: Ne
   // Pipe stream ra response
   videoStream.pipe(res)
 }
+
+export const uploadVideoHLSController = async (req: Request, res: Response, next: NextFunction) => {
+  const url = await mediasService.uploadVideoHLS(req)
+  return res.json({
+    message: USERS_MESSAGES.UPLOAD_SUCCESS,
+    result: url
+  })
+}
